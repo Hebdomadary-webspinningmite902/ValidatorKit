@@ -35,7 +35,7 @@ struct ValidationModifier: ViewModifier {
                     RoundedRectangle(cornerRadius: 10)
                         .strokeBorder(borderColor, lineWidth: 1.5)
                 )
-                .onChange(of: value) { _, newValue in
+                .onChange(of: value) { newValue in
                     if validator.isDirty {
                         validator.validate(newValue)
                     }

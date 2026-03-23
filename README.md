@@ -37,7 +37,7 @@ https://github.com/codewithswiftly/ValidatorKit.git
 Or in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/codewithswiftly/ValidatorKit.git", from: "1.0.0")
+.package(url: "https://github.com/codewithswiftly/ValidatorKit.git", from: "1.0.1")
 ```
 
 ---
